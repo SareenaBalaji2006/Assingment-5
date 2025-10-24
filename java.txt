@@ -1,0 +1,84 @@
+import javafx.application.Application;
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
+import javafx.scene.Scene;
+import javafx.scene.control.*;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
+import javafx.scene.layout.*;
+import javafx.stage.Stage;
+
+public class FullUIExample extends Application {
+
+    @Override
+    public void start(Stage stage) {
+        stage.setTitle("JavaFX Full UI Example");
+
+        // --- Label ---
+        Label nameLabel = new Label("Name:");
+
+        // --- TextField ---
+        TextField nameField = new TextField();
+        nameField.setPromptText("Enter your name");
+
+        // --- TextArea ---
+        TextArea addressArea = new TextArea();
+        addressArea.setPromptText("Enter your address");
+        addressArea.setPrefRowCount(3);
+
+        // --- ImageView ---
+        Image image = new Image("https://upload.wikimedia.org/wikipedia/commons/4/47/JavaFX_Logo.png");
+        ImageView imageView = new ImageView(image);
+        imageView.setFitWidth(120);
+        imageView.setFitHeight(80);
+        imageView.setPreserveRatio(true);
+
+        // --- ListView ---
+        ListView<String> listView = new ListView<>();
+        listView.getItems().addAll("Java", "Python", "C", "C++", "JavaScript");
+        listView.setPrefHeight(100);
+
+        // --- CheckBoxes ---
+        CheckBox cb1 = new CheckBox("Accept Terms");
+        CheckBox cb2 = new CheckBox("Subscribe to Newsletter");
+
+        // --- RadioButtons ---
+        ToggleGroup genderGroup = new ToggleGroup();
+        RadioButton male = new RadioButton("Male");
+        RadioButton female = new RadioButton("Female");
+        male.setToggleGroup(genderGroup);
+        female.setToggleGroup(genderGroup);
+
+        // --- Button ---
+        Button submitButton = new Button("Submit");
+
+        // --- Layout (VBox with nested HBox) ---
+        VBox vbox = new VBox(10);
+        vbox.setPadding(new Insets(15));
+        vbox.setAlignment(Pos.CENTER);
+
+        HBox nameBox = new HBox(10, nameLabel, nameField);
+        nameBox.setAlignment(Pos.CENTER);
+
+        HBox genderBox = new HBox(10, male, female);
+        genderBox.setAlignment(Pos.CENTER);
+
+        vbox.getChildren().addAll(
+            imageView,
+            nameBox,
+            new Label("Address:"), addressArea,
+            new Label("Select Language:"), listView,
+            genderBox,
+            cb1, cb2,
+            submitButton
+        );
+
+        Scene scene = new Scene(vbox, 400, 600);
+        stage.setScene(scene);
+        stage.show();
+    }
+
+    public static void main(String[] args) {
+        launch(args);
+    }
+}
